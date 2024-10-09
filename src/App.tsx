@@ -11,13 +11,13 @@ const App: React.FC = () => {
     media: [
       {
         type: "image" as const,
-        src: "https://via.placeholder.com/550x550",
-        thumbnailSrc: "https://via.placeholder.com/132x132",
+        src: "/item1.png",
+        thumbnailSrc: "/item1.png",
       },
       {
         type: "image" as const,
-        src: "https://via.placeholder.com/550x550",
-        thumbnailSrc: "https://via.placeholder.com/132x132",
+        src: "/item2.png",
+        thumbnailSrc: "/item2.png",
       },
       {
         type: "iframe" as const,
