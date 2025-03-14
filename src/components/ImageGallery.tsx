@@ -1,24 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-
-interface MediaItem {
-  type: "image" | "iframe";
-  src: string;
-  thumbnailSrc?: string;
-}
+import { MediaItem } from "../types/product";
 
 interface ImageGalleryProps {
   media: MediaItem[];
+  productId: string;
+  registerIframeRef?: (productId: string, ref: HTMLIFrameElement | null) => void;
 }
 
-const ImageGallery: React.FC<ImageGalleryProps> = ({ media }) => {
+const ImageGallery: React.FC<ImageGalleryProps> = ({ 
+  media, 
+  productId,
+  registerIframeRef 
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Register the iframe ref when it changes or when the active media item changes
+  useEffect(() => {
+    if (media[activeIndex]?.type === "iframe" && registerIframeRef) {
+      registerIframeRef(productId, iframeRef.current);
+    }
+  }, [activeIndex, media, productId, registerIframeRef]);
 
   return (
     <Card className="image-gallery">
       <CardContent className="p-4">
         <div className="main-media mb-4 w-[550px] h-[550px] mx-auto overflow-hidden rounded-lg relative">
-          {media[activeIndex].type === "image" ? (
+          {media[activeIndex]?.type === "image" ? (
             <img
               src={media[activeIndex].src}
               alt={`Product image ${activeIndex + 1}`}
@@ -26,6 +35,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ media }) => {
             />
           ) : (
             <iframe
+              ref={iframeRef}
               src={media[activeIndex].src}
               title={`Product iframe ${activeIndex + 1}`}
               className="w-full h-full"

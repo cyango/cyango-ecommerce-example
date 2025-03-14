@@ -3,41 +3,44 @@ import ImageGallery from "./ImageGallery";
 import ProductDetails from "./ProductDetails";
 import SpecificationTable from "./SpecificationTable";
 import { Card, CardContent } from "@/components/ui/card";
-
-interface MediaItem {
-  type: "image" | "iframe";
-  src: string;
-  thumbnailSrc?: string;
-}
+import { Product } from "../types/product";
 
 interface ProductPageProps {
-  product: {
-    name: string;
-    price: number;
-    description: string;
-    media: MediaItem[];
-    specifications: Array<{ key: string; value: string }>;
-    rating: number;
-    reviewCount: number;
-    colors: string[];
-    sizes: string[];
-  };
+  product: Product;
+  onAddToCart?: () => void;
+  registerIframeRef?: (productId: string, ref: HTMLIFrameElement | null) => void;
+  onSizeChange?: (productId: string, size: string) => void;
 }
 
-const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
+const ProductPage: React.FC<ProductPageProps> = ({ 
+  product, 
+  onAddToCart,
+  registerIframeRef,
+  onSizeChange
+}) => {
+  // Convert colors array to colorOptions if colorOptions is not provided
+  const colorOptions = product.colorOptions || product.colors.map(color => ({ color }));
+
   return (
     <Card className="product-page">
       <CardContent className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <ImageGallery media={product.media} />
+          <ImageGallery 
+            media={product.media} 
+            productId={product.id}
+            registerIframeRef={registerIframeRef}
+          />
           <ProductDetails
             name={product.name}
             price={product.price}
             description={product.description}
             rating={product.rating}
             reviewCount={product.reviewCount}
-            colors={product.colors}
+            colorOptions={colorOptions}
             sizes={product.sizes}
+            onAddToCart={onAddToCart}
+            productId={product.id}
+            onSizeChange={onSizeChange}
           />
         </div>
         <SpecificationTable specifications={product.specifications} />
@@ -46,4 +49,4 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
   );
 };
 
-export default ProductPage;
+export default ProductPage; 

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Star, StarHalf } from "lucide-react";
+import { ColorOption } from "../types/product";
 
 interface ProductDetailsProps {
   name: string;
@@ -10,8 +11,12 @@ interface ProductDetailsProps {
   description: string;
   rating: number;
   reviewCount: number;
-  colors: string[];
+  colors?: string[]; // Keep for backward compatibility
+  colorOptions?: ColorOption[]; // Make optional for backward compatibility
   sizes: string[];
+  onAddToCart?: () => void;
+  productId?: string; // Add product ID for iframe messaging
+  onSizeChange?: (productId: string, size: string) => void; // Add size change handler
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({
@@ -20,11 +25,23 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   description,
   rating,
   reviewCount,
-  colors,
+  colors = [],
+  colorOptions = [],
   sizes,
+  onAddToCart,
+  productId,
+  onSizeChange,
 }) => {
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
+  // Use colorOptions if provided, otherwise convert colors to colorOptions
+  const finalColorOptions: ColorOption[] = colorOptions.length > 0 
+    ? colorOptions 
+    : colors.map(color => ({ color }));
+    
+  const [selectedColor, setSelectedColor] = useState(
+    finalColorOptions.length > 0 ? finalColorOptions[0].color : ""
+  );
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
+  const [quantity, setQuantity] = useState(1);
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -44,6 +61,39 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     return stars;
   };
 
+  const handleColorChange = (colorValue: string) => {
+    setSelectedColor(colorValue);
+    
+    // Find the color option and execute its onClick function if it exists
+    const selectedOption = finalColorOptions.find(option => option.color === colorValue);
+    if (selectedOption?.onClick) {
+      selectedOption.onClick();
+    }
+  };
+
+  const handleSizeChange = (sizeValue: string) => {
+    setSelectedSize(sizeValue);
+    
+    // Notify parent component about size change if handler is provided
+    if (onSizeChange && productId) {
+      onSizeChange(productId, sizeValue);
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (onAddToCart) {
+      onAddToCart();
+    }
+  };
+
+  const incrementQuantity = () => {
+    setQuantity(prev => prev + 1);
+  };
+
+  const decrementQuantity = () => {
+    setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+  };
+
   return (
     <div className="product-details space-y-6">
       <h1 className="text-3xl font-bold">{name}</h1>
@@ -55,41 +105,43 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       <p className="text-gray-600">{description}</p>
 
       <div className="space-y-4">
-        <div>
-          <h3 className="text-sm font-medium mb-2">Color</h3>
-          <RadioGroup
-            value={selectedColor}
-            onValueChange={setSelectedColor}
-            className="flex space-x-3"
-          >
-            {colors.map((color) => (
-              <div key={color}>
-                <RadioGroupItem
-                  value={color}
-                  id={`color-${color}`}
-                  className="sr-only"
-                />
-                <Label
-                  htmlFor={`color-${color}`}
-                  className={`w-10 h-10 rounded-full cursor-pointer border-2 flex items-center justify-center ${
-                    selectedColor === color ? "border-black" : "border-gray-300"
-                  }`}
-                  style={{ backgroundColor: color }}
-                >
-                  {selectedColor === color && (
-                    <div className="w-6 h-6 rounded-full bg-white opacity-30"></div>
-                  )}
-                </Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </div>
+        {finalColorOptions.length > 0 && (
+          <div>
+            <h3 className="text-sm font-medium mb-2">Color</h3>
+            <RadioGroup
+              value={selectedColor}
+              onValueChange={handleColorChange}
+              className="flex space-x-3"
+            >
+              {finalColorOptions.map((colorOption) => (
+                <div key={colorOption.color}>
+                  <RadioGroupItem
+                    value={colorOption.color}
+                    id={`color-${colorOption.color}`}
+                    className="sr-only"
+                  />
+                  <Label
+                    htmlFor={`color-${colorOption.color}`}
+                    className={`w-10 h-10 rounded-full cursor-pointer border-2 flex items-center justify-center ${
+                      selectedColor === colorOption.color ? "border-black" : "border-gray-300"
+                    }`}
+                    style={{ backgroundColor: colorOption.color }}
+                  >
+                    {selectedColor === colorOption.color && (
+                      <div className="w-6 h-6 rounded-full bg-white opacity-30"></div>
+                    )}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+        )}
 
         <div>
           <h3 className="text-sm font-medium mb-2">Size</h3>
           <RadioGroup
             value={selectedSize}
-            onValueChange={setSelectedSize}
+            onValueChange={handleSizeChange}
             className="flex flex-wrap gap-3"
           >
             {sizes.map((size) => (
@@ -113,9 +165,30 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
             ))}
           </RadioGroup>
         </div>
+
+        <div>
+          <h3 className="text-sm font-medium mb-2">Quantity</h3>
+          <div className="flex items-center">
+            <button 
+              onClick={decrementQuantity}
+              className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-l"
+            >
+              -
+            </button>
+            <div className="w-12 h-8 flex items-center justify-center border-t border-b border-gray-300">
+              {quantity}
+            </div>
+            <button 
+              onClick={incrementQuantity}
+              className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-r"
+            >
+              +
+            </button>
+          </div>
+        </div>
       </div>
 
-      <Button className="w-full">Add to Cart</Button>
+      <Button className="w-full" onClick={handleAddToCart}>Add to Cart</Button>
     </div>
   );
 };
