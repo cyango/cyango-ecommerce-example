@@ -4,9 +4,6 @@ import Hero from "./components/Hero";
 import { Product } from "./types/product";
 import ProductPage from "./components/ProductPage";
 import ProductList from "./components/ProductList";
-// Import images directly
-import item1 from "./images/item1.png";
-import item2 from "./images/item2.png";
 import item3 from "./images/item3.png";
 
 const App: React.FC = () => {
