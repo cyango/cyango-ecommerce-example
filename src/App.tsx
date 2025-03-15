@@ -5,7 +5,7 @@ import { Product } from "./types/product";
 import ProductPage from "./components/ProductPage";
 import ProductList from "./components/ProductList";
 import item3 from "./images/item3.png";
-
+import item4 from "./images/item4.png";
 const App: React.FC = () => {
   // Create a ref to store iframe references
   const iframeRefs = useRef<{ [key: string]: HTMLIFrameElement | null }>({});
@@ -186,21 +186,21 @@ const App: React.FC = () => {
     },
     {
       id: "product-2",
-      name: "Decorative Flower",
+      name: "Gaussian Flower",
       price: 59.99,
       description:
-        "A warm and stylish hoodie perfect for cooler weather. Features a soft inner lining and durable outer material.",
+        "A beautiful flower scanned with Gaussian Splatting",
       media: [
         {
           type: "iframe",
-          src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350/?entity=entity_ea00e8a6-9343-4b70-8223-4340606504d8",
-          thumbnailSrc: item3,
+          src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350?scene=scene_fd5cd5dd-806e-4d2a-8461-caafd1d29ca1",
+          thumbnailSrc: item4,
           iframeId: "hoodie-iframe"
         },
         {
           type: "image",
-          src: item3,
-          thumbnailSrc: item3,
+          src: item4,
+          thumbnailSrc: item4,
         },
       ],
       specifications: [
