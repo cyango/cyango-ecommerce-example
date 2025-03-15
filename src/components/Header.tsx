@@ -1,5 +1,6 @@
 import React from "react";
 import { ShoppingCart } from "lucide-react";
+import logo from "../images/logo.png";
 
 interface HeaderProps {
   productCount?: number;
@@ -17,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({
       <div className="container mx-auto px-4">
         <div className="flex items-center h-16">
           <div className="flex-shrink-0 mr-10">
-            <img src="/logo.png" alt="Logo" className="h-8" />
+            <img src={logo} alt="Logo" className="h-8" />
           </div>
           <nav className="hidden md:flex space-x-6 flex-1">
             <a 

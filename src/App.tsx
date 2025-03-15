@@ -3,6 +3,10 @@ import Header from "./components/Header";
 import { Product } from "./types/product";
 import ProductPage from "./components/ProductPage";
 import ProductList from "./components/ProductList";
+// Import images directly
+import item1 from "./images/item1.png";
+import item2 from "./images/item2.png";
+import item3 from "./images/item3.png";
 
 const App: React.FC = () => {
   // Create a ref to store iframe references
@@ -134,13 +138,13 @@ const App: React.FC = () => {
       media: [
         {
           type: "image" as const,
-          src: "/item1.png",
-          thumbnailSrc: "/item1.png",
+          src: item1,
+          thumbnailSrc: item1,
         },
         {
           type: "image" as const,
-          src: "/item2.png",
-          thumbnailSrc: "/item2.png",
+          src: item2,
+          thumbnailSrc: item2,
         },
       ],
       specifications: [
@@ -181,13 +185,13 @@ const App: React.FC = () => {
         {
           type: "iframe" as const,
           src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350/?entity=entity_ea00e8a6-9343-4b70-8223-4340606504d8",
-          thumbnailSrc: "/item3.png",
+          thumbnailSrc: item3,
           iframeId: "hoodie-iframe"
         },
         {
           type: "image" as const,
-          src: "/item2.png",
-          thumbnailSrc: "/item2.png",
+          src: item2,
+          thumbnailSrc: item2,
         },
       ],
       specifications: [
@@ -227,8 +231,8 @@ const App: React.FC = () => {
       media: [
         {
           type: "image" as const,
-          src: "/item3.png",
-          thumbnailSrc: "/item3.png",
+          src: item3,
+          thumbnailSrc: item3,
         },
       ],
       specifications: [
