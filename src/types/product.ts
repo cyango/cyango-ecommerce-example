@@ -22,7 +22,7 @@ export interface Product {
   reviewCount: number;
   colors: string[]; // Keep for backward compatibility
   colorOptions?: ColorOption[]; // Make optional for backward compatibility
-  sizes: string[];
+  sizes?: string[];
   // Optional iframe messaging configuration
   iframeConfig?: {
     defaultScene?: string;

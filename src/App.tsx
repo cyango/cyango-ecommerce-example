@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import Header from "./components/Header";
+import Hero from "./components/Hero";
 import { Product } from "./types/product";
 import ProductPage from "./components/ProductPage";
 import ProductList from "./components/ProductList";
@@ -11,6 +12,22 @@ import item3 from "./images/item3.png";
 const App: React.FC = () => {
   // Create a ref to store iframe references
   const iframeRefs = useRef<{ [key: string]: HTMLIFrameElement | null }>({});
+
+  // Hero items for the gallery
+  const heroItems = [
+    {
+      id: "hero-3",
+      title: "Explore our 3D shop",
+      description: "Use the keyboard, mouse or touch to navigate through the shop",
+      media: {
+        type: "iframe" as const,
+        src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350?scene=scene_16195997-8df7-4a7a-9ebb-ac2dcc73d407",
+        iframeId: "hero-iframe",
+      },
+      ctaText: "Try Now",
+      ctaLink: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350?scene=scene_16195997-8df7-4a7a-9ebb-ac2dcc73d407",
+    },
+  ];
 
   const sendMessageToIframe = (productId: string, data: any) => {
     console.log(`Sending message to iframe for product ${productId}:`, data);
@@ -129,69 +146,24 @@ const App: React.FC = () => {
 
   // Create an array of products with iframe configuration
   const products: Product[] = [
+  
     {
       id: "product-1",
-      name: "Classic T-Shirt",
-      price: 29.99,
-      description:
-        "A comfortable and versatile t-shirt made from premium cotton. Perfect for everyday wear and available in multiple colors.",
-      media: [
-        {
-          type: "image" as const,
-          src: item1,
-          thumbnailSrc: item1,
-        },
-        {
-          type: "image" as const,
-          src: item2,
-          thumbnailSrc: item2,
-        },
-      ],
-      specifications: [
-        { key: "Color", value: "Multiple options" },
-        { key: "Size", value: "XS to XL" },
-        { key: "Material", value: "100% Cotton" },
-        { key: "Care", value: "Machine wash cold" },
-      ],
-      rating: 4.5,
-      reviewCount: 123,
-      colors: colorOptions.map(option => option.color),
-      colorOptions: colorOptions,
-      sizes: ["XS", "S", "M", "L", "XL"],
-      iframeConfig: {
-        defaultScene: "default_scene",
-        colorScenes: {
-          "#000000": "black_tshirt_scene",
-          "#FFFFFF": "white_tshirt_scene",
-          "#FF0000": "red_tshirt_scene",
-          "#0000FF": "blue_tshirt_scene"
-        },
-        sizeScenes: {
-          "XS": "xs_tshirt_scene",
-          "S": "s_tshirt_scene",
-          "M": "m_tshirt_scene",
-          "L": "l_tshirt_scene",
-          "XL": "xl_tshirt_scene"
-        }
-      }
-    },
-    {
-      id: "product-2",
-      name: "Premium Hoodie",
+      name: "Decorative Flower",
       price: 59.99,
       description:
         "A warm and stylish hoodie perfect for cooler weather. Features a soft inner lining and durable outer material.",
       media: [
         {
-          type: "iframe" as const,
+          type: "iframe",
           src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350/?entity=entity_ea00e8a6-9343-4b70-8223-4340606504d8",
           thumbnailSrc: item3,
           iframeId: "hoodie-iframe"
         },
         {
-          type: "image" as const,
-          src: item2,
-          thumbnailSrc: item2,
+          type: "image",
+          src: item3,
+          thumbnailSrc: item3,
         },
       ],
       specifications: [
@@ -204,15 +176,48 @@ const App: React.FC = () => {
       reviewCount: 87,
       colors: colorOptions.map(option => option.color),
       colorOptions: colorOptions,
-      sizes: ["S", "M", "L", "XL", "XXL"],
       iframeConfig: {
         defaultScene: "default_hoodie_scene",
-        colorScenes: {
-          "#000000": "black_hoodie_scene",
-          "#FFFFFF": "white_hoodie_scene",
-          "#FF0000": "red_hoodie_scene",
-          "#0000FF": "blue_hoodie_scene"
+        sizeScenes: {
+          "S": "s_hoodie_scene",
+          "M": "m_hoodie_scene",
+          "L": "l_hoodie_scene",
+          "XL": "xl_hoodie_scene",
+          "XXL": "xxl_hoodie_scene"
+        }
+      }
+    },
+    {
+      id: "product-2",
+      name: "Decorative Flower",
+      price: 59.99,
+      description:
+        "A warm and stylish hoodie perfect for cooler weather. Features a soft inner lining and durable outer material.",
+      media: [
+        {
+          type: "iframe",
+          src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350/?entity=entity_ea00e8a6-9343-4b70-8223-4340606504d8",
+          thumbnailSrc: item3,
+          iframeId: "hoodie-iframe"
         },
+        {
+          type: "image",
+          src: item3,
+          thumbnailSrc: item3,
+        },
+      ],
+      specifications: [
+        { key: "Color", value: "Multiple options" },
+        { key: "Size", value: "S to XXL" },
+        { key: "Material", value: "80% Cotton, 20% Polyester" },
+        { key: "Care", value: "Machine wash cold, tumble dry low" },
+      ],
+      rating: 4.8,
+      reviewCount: 87,
+      colors: colorOptions.map(option => option.color),
+      colorOptions: colorOptions,
+      iframeConfig: {
+        defaultScene: "default_hoodie_scene",
         sizeScenes: {
           "S": "s_hoodie_scene",
           "M": "m_hoodie_scene",
@@ -224,33 +229,45 @@ const App: React.FC = () => {
     },
     {
       id: "product-3",
-      name: "Slim Fit Jeans",
-      price: 49.99,
+      name: "Decorative Flower",
+      price: 59.99,
       description:
-        "Modern slim fit jeans with a comfortable stretch. These jeans offer both style and comfort for everyday wear.",
+        "A warm and stylish hoodie perfect for cooler weather. Features a soft inner lining and durable outer material.",
       media: [
         {
-          type: "image" as const,
+          type: "iframe",
+          src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350/?entity=entity_ea00e8a6-9343-4b70-8223-4340606504d8",
+          thumbnailSrc: item3,
+          iframeId: "hoodie-iframe"
+        },
+        {
+          type: "image",
           src: item3,
           thumbnailSrc: item3,
         },
       ],
       specifications: [
-        { key: "Color", value: "Blue Denim" },
-        { key: "Size", value: "28 to 38" },
-        { key: "Material", value: "95% Cotton, 5% Elastane" },
-        { key: "Care", value: "Machine wash cold, inside out" },
+        { key: "Color", value: "Multiple options" },
+        { key: "Size", value: "S to XXL" },
+        { key: "Material", value: "80% Cotton, 20% Polyester" },
+        { key: "Care", value: "Machine wash cold, tumble dry low" },
       ],
-      rating: 4.3,
-      reviewCount: 56,
-      colors: ["#000080", "#0000FF", "#1E90FF"],
-      colorOptions: [
-        { color: "#000080" },
-        { color: "#0000FF" },
-        { color: "#1E90FF" },
-      ],
-      sizes: ["28", "30", "32", "34", "36", "38"],
+      rating: 4.8,
+      reviewCount: 87,
+      colors: colorOptions.map(option => option.color),
+      colorOptions: colorOptions,
+      iframeConfig: {
+        defaultScene: "default_hoodie_scene",
+        sizeScenes: {
+          "S": "s_hoodie_scene",
+          "M": "m_hoodie_scene",
+          "L": "l_hoodie_scene",
+          "XL": "xl_hoodie_scene",
+          "XXL": "xxl_hoodie_scene"
+        }
+      }
     },
+  
   ];
 
   // State to track the currently selected product
@@ -307,6 +324,15 @@ const App: React.FC = () => {
         updateIframeScene(productId, selectedProduct.iframeConfig!.defaultScene!);
       }, 1000);
     }
+    
+    // For hero iframes, we need special handling
+    if (ref && productId.startsWith('hero-')) {
+      // Wait a bit for the iframe to load
+      setTimeout(() => {
+        console.log(`Hero iframe registered: ${productId}`);
+        // You can send custom messages to the hero iframe here if needed
+      }, 1000);
+    }
   };
 
   return (
@@ -316,8 +342,16 @@ const App: React.FC = () => {
         onHomeClick={handleBackToList}
         onProductsClick={handleBackToList}
       />
+      
+      {!selectedProduct && (
+        <Hero 
+          items={heroItems} 
+          registerIframeRef={registerIframeRef}
+        />
+      )}
+
       <main className="flex-grow">
-        <div className="container mx-auto p-4">
+        <div className={`container mx-auto p-4 ${!selectedProduct ? 'mt-4' : ''}`}>
           {selectedProduct ? (
             <>
               <button 
@@ -334,7 +368,10 @@ const App: React.FC = () => {
               />
             </>
           ) : (
-            <ProductList products={products} onSelectProduct={handleProductSelect} />
+            <>
+              <h2 className="text-2xl font-bold mb-6">Featured Products</h2>
+              <ProductList products={products} onSelectProduct={handleProductSelect} />
+            </>
           )}
         </div>
       </main>

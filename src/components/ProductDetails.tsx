@@ -13,7 +13,7 @@ interface ProductDetailsProps {
   reviewCount: number;
   colors?: string[]; // Keep for backward compatibility
   colorOptions?: ColorOption[]; // Make optional for backward compatibility
-  sizes: string[];
+  sizes?: string[];
   onAddToCart?: () => void;
   productId?: string; // Add product ID for iframe messaging
   onSizeChange?: (productId: string, size: string) => void; // Add size change handler
@@ -40,7 +40,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   const [selectedColor, setSelectedColor] = useState(
     finalColorOptions.length > 0 ? finalColorOptions[0].color : ""
   );
-  const [selectedSize, setSelectedSize] = useState(sizes[0]);
+  const [selectedSize, setSelectedSize] = useState(sizes?.[0] || "");
   const [quantity, setQuantity] = useState(1);
 
   const renderStars = (rating: number) => {
@@ -137,10 +137,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
           </div>
         )}
 
-        <div>
-          <h3 className="text-sm font-medium mb-2">Size</h3>
-          <RadioGroup
-            value={selectedSize}
+        {sizes && (
+          <div>
+            <h3 className="text-sm font-medium mb-2">Size</h3>
+            <RadioGroup
+              value={selectedSize}
             onValueChange={handleSizeChange}
             className="flex flex-wrap gap-3"
           >
@@ -163,8 +164,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 </Label>
               </div>
             ))}
-          </RadioGroup>
-        </div>
+            </RadioGroup>
+          </div>
+        )}
 
         <div>
           <h3 className="text-sm font-medium mb-2">Quantity</h3>

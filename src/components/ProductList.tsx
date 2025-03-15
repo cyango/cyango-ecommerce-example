@@ -20,17 +20,13 @@ const ProductList: React.FC<ProductListProps> = ({ products, onSelectProduct }) 
           >
             <CardContent className="p-4">
               <div className="aspect-square w-full overflow-hidden mb-4">
-                {product.media[0]?.type === "image" ? (
+        
                   <img 
-                    src={product.media[0].src} 
+                    src={product.media[0].thumbnailSrc} 
                     alt={product.name} 
                     className="w-full h-full object-cover"
                   />
-                ) : (
-                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                    <span>Preview not available</span>
-                  </div>
-                )}
+                
               </div>
               <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
               <p className="text-gray-600 mb-2 line-clamp-2">{product.description}</p>

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { MediaItem } from "../types/product";
+import { Loader2 } from "lucide-react";
 
 interface ImageGalleryProps {
   media: MediaItem[];
@@ -15,13 +16,21 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [iframeLoading, setIframeLoading] = useState(true);
 
   // Register the iframe ref when it changes or when the active media item changes
   useEffect(() => {
     if (media[activeIndex]?.type === "iframe" && registerIframeRef) {
       registerIframeRef(productId, iframeRef.current);
+      // Reset loading state when iframe source changes
+      setIframeLoading(true);
     }
   }, [activeIndex, media, productId, registerIframeRef]);
+
+  // Handle iframe load event
+  const handleIframeLoad = () => {
+    setIframeLoading(false);
+  };
 
   return (
     <Card className="image-gallery">
@@ -34,13 +43,22 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
               className="w-full h-full object-cover"
             />
           ) : (
-            <iframe
-              ref={iframeRef}
-              src={media[activeIndex].src}
-              title={`Product iframe ${activeIndex + 1}`}
-              className="w-full h-full"
-              allowFullScreen
-            />
+            <div className="relative w-full h-full">
+              {iframeLoading && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 z-10">
+                  <Loader2 className="h-12 w-12 animate-spin text-primary mb-2" />
+                  <p className="text-gray-700 font-medium">Loading 3D model...</p>
+                </div>
+              )}
+              <iframe
+                ref={iframeRef}
+                src={media[activeIndex].src}
+                title={`Product iframe ${activeIndex + 1}`}
+                className="w-full h-full"
+                allowFullScreen
+                onLoad={handleIframeLoad}
+              />
+            </div>
           )}
           <div className="absolute top-16 -left-20 bg-red-600 text-white py-2 px-32 transform -rotate-45 shadow-lg">
             <span className="text-2xl font-bold">Sale</span>
