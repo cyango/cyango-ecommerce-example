@@ -49,12 +49,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     const hasHalfStar = rating % 1 !== 0;
 
     for (let i = 0; i < fullStars; i++) {
-      stars.push(<Star key={i} className="fill-yellow-400 text-yellow-400" />);
+      stars.push(<Star key={i} className="fill-yellow-400 text-yellow-400 w-4 h-4 sm:w-5 sm:h-5" />);
     }
 
     if (hasHalfStar) {
       stars.push(
-        <StarHalf key="half" className="fill-yellow-400 text-yellow-400" />
+        <StarHalf key="half" className="fill-yellow-400 text-yellow-400 w-4 h-4 sm:w-5 sm:h-5" />
       );
     }
 
@@ -95,14 +95,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   };
 
   return (
-    <div className="product-details space-y-6">
-      <h1 className="text-3xl font-bold">{name}</h1>
+    <div className="product-details space-y-4 sm:space-y-6">
+      <h1 className="text-2xl sm:text-3xl font-bold">{name}</h1>
       <div className="flex items-center space-x-2">
         <div className="flex">{renderStars(rating)}</div>
         <span className="text-sm text-gray-600">({reviewCount} reviews)</span>
       </div>
-      <p className="text-2xl font-semibold">${price.toFixed(2)}</p>
-      <p className="text-gray-600">{description}</p>
+      <p className="text-xl sm:text-2xl font-semibold">${price.toFixed(2)}</p>
+      <p className="text-gray-600 text-sm sm:text-base">{description}</p>
 
       <div className="space-y-4">
         {finalColorOptions.length > 0 && (
@@ -111,7 +111,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
             <RadioGroup
               value={selectedColor}
               onValueChange={handleColorChange}
-              className="flex space-x-3"
+              className="flex flex-wrap gap-2 sm:gap-3"
             >
               {finalColorOptions.map((colorOption) => (
                 <div key={colorOption.color}>
@@ -122,13 +122,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                   />
                   <Label
                     htmlFor={`color-${colorOption.color}`}
-                    className={`w-10 h-10 rounded-full cursor-pointer border-2 flex items-center justify-center ${
+                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full cursor-pointer border-2 flex items-center justify-center ${
                       selectedColor === colorOption.color ? "border-black" : "border-gray-300"
                     }`}
                     style={{ backgroundColor: colorOption.color }}
                   >
                     {selectedColor === colorOption.color && (
-                      <div className="w-6 h-6 rounded-full bg-white opacity-30"></div>
+                      <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white opacity-30"></div>
                     )}
                   </Label>
                 </div>
@@ -142,28 +142,28 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
             <h3 className="text-sm font-medium mb-2">Size</h3>
             <RadioGroup
               value={selectedSize}
-            onValueChange={handleSizeChange}
-            className="flex flex-wrap gap-3"
-          >
-            {sizes.map((size) => (
-              <div key={size}>
-                <RadioGroupItem
-                  value={size}
-                  id={`size-${size}`}
-                  className="sr-only"
-                />
-                <Label
-                  htmlFor={`size-${size}`}
-                  className={`w-10 h-10 flex items-center justify-center border-2 rounded-full cursor-pointer ${
-                    selectedSize === size
-                      ? "bg-black text-white border-black"
-                      : "bg-white text-black border-gray-300 hover:border-gray-400"
-                  }`}
-                >
-                  {size}
-                </Label>
-              </div>
-            ))}
+              onValueChange={handleSizeChange}
+              className="flex flex-wrap gap-2 sm:gap-3"
+            >
+              {sizes.map((size) => (
+                <div key={size}>
+                  <RadioGroupItem
+                    value={size}
+                    id={`size-${size}`}
+                    className="sr-only"
+                  />
+                  <Label
+                    htmlFor={`size-${size}`}
+                    className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center border-2 rounded-full cursor-pointer ${
+                      selectedSize === size
+                        ? "bg-black text-white border-black"
+                        : "bg-white text-black border-gray-300 hover:border-gray-400"
+                    }`}
+                  >
+                    {size}
+                  </Label>
+                </div>
+              ))}
             </RadioGroup>
           </div>
         )}
@@ -190,7 +190,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         </div>
       </div>
 
-      <Button className="w-full" onClick={handleAddToCart}>Add to Cart</Button>
+      <Button className="w-full mt-4" onClick={handleAddToCart}>Add to Cart</Button>
     </div>
   );
 };

@@ -35,7 +35,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
   return (
     <Card className="image-gallery">
       <CardContent className="p-4">
-        <div className="main-media mb-4 w-[550px] h-[550px] mx-auto overflow-hidden rounded-lg relative">
+        <div className="main-media mb-4 w-full max-w-[550px] h-[300px] sm:h-[400px] md:h-[550px] mx-auto overflow-hidden rounded-lg relative">
           {media[activeIndex]?.type === "image" ? (
             <img
               src={media[activeIndex].src}
@@ -60,15 +60,15 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
               />
             </div>
           )}
-          <div className="absolute top-16 -left-20 bg-red-600 text-white py-2 px-32 transform -rotate-45 shadow-lg">
-            <span className="text-2xl font-bold">Sale</span>
+          <div className="absolute top-8 -left-12 sm:top-16 sm:-left-20 bg-red-600 text-white py-1 sm:py-2 px-16 sm:px-32 transform -rotate-45 shadow-lg">
+            <span className="text-lg sm:text-2xl font-bold">Sale</span>
           </div>
         </div>
-        <div className="thumbnail-list grid grid-cols-4 gap-2 w-[550px] mx-auto">
+        <div className="thumbnail-list grid grid-cols-4 gap-2 w-full max-w-[550px] mx-auto">
           {media.map((item, index) => (
             <div
               key={index}
-              className={`thumbnail cursor-pointer w-[132px] h-[132px] overflow-hidden rounded ${
+              className={`thumbnail cursor-pointer w-full h-[80px] sm:h-[100px] md:h-[132px] overflow-hidden rounded ${
                 index === activeIndex ? "ring-2 ring-primary" : ""
               }`}
               onClick={() => setActiveIndex(index)}

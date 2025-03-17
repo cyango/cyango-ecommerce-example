@@ -16,22 +16,27 @@ const SpecificationTable: React.FC<SpecificationTableProps> = ({
   specifications,
 }) => {
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Specification</TableHead>
-          <TableHead>Value</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {specifications.map((spec, index) => (
-          <TableRow key={index}>
-            <TableCell className="font-medium">{spec.key}</TableCell>
-            <TableCell>{spec.value}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <div className="w-full">
+      <h2 className="text-xl font-semibold mb-3">Specifications</h2>
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-1/3 sm:w-1/4">Specification</TableHead>
+              <TableHead>Value</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {specifications.map((spec, index) => (
+              <TableRow key={index}>
+                <TableCell className="font-medium text-sm sm:text-base">{spec.key}</TableCell>
+                <TableCell className="text-sm sm:text-base">{spec.value}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
   );
 };
 

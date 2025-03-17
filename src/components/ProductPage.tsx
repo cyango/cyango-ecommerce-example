@@ -22,9 +22,9 @@ const ProductPage: React.FC<ProductPageProps> = ({
   const colorOptions = product.colorOptions || product.colors.map(color => ({ color }));
 
   return (
-    <Card className="product-page">
-      <CardContent className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <Card className="product-page w-full">
+      <CardContent className="p-3 sm:p-4 md:p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <ImageGallery 
             media={product.media} 
             productId={product.id}
@@ -43,7 +43,9 @@ const ProductPage: React.FC<ProductPageProps> = ({
             onSizeChange={onSizeChange}
           />
         </div>
-        <SpecificationTable specifications={product.specifications} />
+        <div className="mt-6 overflow-x-auto">
+          <SpecificationTable specifications={product.specifications} />
+        </div>
       </CardContent>
     </Card>
   );
