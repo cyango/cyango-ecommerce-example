@@ -18,11 +18,11 @@ const App: React.FC = () => {
       description: "Use the keyboard, mouse or touch to navigate through the shop",
       media: {
         type: "iframe" as const,
-        src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350?scene=scene_16195997-8df7-4a7a-9ebb-ac2dcc73d407",
+        src: "https://story.cyango.com/66b9ca9aefd30bd7f6327350?scene=scene_16195997-8df7-4a7a-9ebb-ac2dcc73d407",
         iframeId: "hero-iframe",
       },
       ctaText: "Try Now",
-      ctaLink: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350?scene=scene_16195997-8df7-4a7a-9ebb-ac2dcc73d407",
+      ctaLink: "https://story.cyango.com/66b9ca9aefd30bd7f6327350?scene=scene_16195997-8df7-4a7a-9ebb-ac2dcc73d407",
     },
   ];
 
@@ -153,7 +153,7 @@ const App: React.FC = () => {
       media: [
         {
           type: "iframe",
-          src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350/?entity=entity_ea00e8a6-9343-4b70-8223-4340606504d8",
+          src: "https://story.cyango.com/66b9ca9aefd30bd7f6327350/?entity=entity_666b5496-7ee4-4014-b724-4ad14f8e2e15",
           thumbnailSrc: item3,
           iframeId: "hoodie-iframe"
         },
@@ -193,7 +193,7 @@ const App: React.FC = () => {
       media: [
         {
           type: "iframe",
-          src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350?scene=scene_fd5cd5dd-806e-4d2a-8461-caafd1d29ca1",
+          src: "https://story.cyango.com/66b9ca9aefd30bd7f6327350/?entity=entity_ac547d82-48ff-440c-8d93-d3a37fc0f117",
           thumbnailSrc: item4,
           iframeId: "hoodie-iframe"
         },
@@ -233,7 +233,7 @@ const App: React.FC = () => {
       media: [
         {
           type: "iframe",
-          src: "https://www.cyango.com/story/66b9ca9aefd30bd7f6327350/?entity=entity_ea00e8a6-9343-4b70-8223-4340606504d8",
+          src: "https://story.cyango.com/66b9ca9aefd30bd7f6327350/?entity=entity_666b5496-7ee4-4014-b724-4ad14f8e2e15",
           thumbnailSrc: item3,
           iframeId: "hoodie-iframe"
         },
