@@ -56,6 +56,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
                 title={`Product iframe ${activeIndex + 1}`}
                 className="w-full h-full"
                 allowFullScreen
+                allow="web-xr; accelerometer; gyroscope; magnetometer; camera; microphone; local-floor"
                 onLoad={handleIframeLoad}
               />
             </div>
